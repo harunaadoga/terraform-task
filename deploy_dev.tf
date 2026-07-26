@@ -1,7 +1,7 @@
 resource "aws_instance" "web1_dev" {
   ami                         = "ami-0500f74cc2b89fb6b"
   instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.sg1_dev]
+  vpc_security_group_ids      = [aws_security_group.sg1_dev.id]
   subnet_id                   = aws_subnet.public-subnet.id
   associate_public_ip_address = true
 
@@ -15,7 +15,7 @@ resource "aws_instance" "web1_dev" {
 resource "aws_instance" "web2_dev" {
   ami                         = "ami-0500f74cc2b89fb6b"
   instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.sg1_dev]
+  vpc_security_group_ids      = [aws_security_group.sg1_dev.id]
   subnet_id                   = aws_subnet.public-subnet.id
   associate_public_ip_address = true
 
@@ -29,7 +29,7 @@ resource "aws_instance" "web2_dev" {
 resource "aws_instance" "web3_dev" {
   ami                         = "ami-0500f74cc2b89fb6b"
   instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.sg1_dev]
+  vpc_security_group_ids      = [aws_security_group.sg1_dev.id]
   subnet_id                   = aws_subnet.public-subnet.id
   associate_public_ip_address = true
 
