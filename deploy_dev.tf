@@ -1,6 +1,6 @@
 resource "aws_instance" "web_dev" {
   count                       = 3
-  ami                         = "ami-0500f74cc2b89fb6b"
+  ami                         = var.ami_id
   instance_type               = "t2.micro"
   vpc_security_group_ids      = [aws_security_group.sg1_dev.id]
   subnet_id                   = aws_subnet.public-subnet.id
