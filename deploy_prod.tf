@@ -1,45 +1,21 @@
-resource "aws_instance" "web1_prod" {
+resource "aws_instance" "web_prod" {
+  count                       = 3
   ami                         = "ami-0500f74cc2b89fb6b"
   instance_type               = "t3.large"
-  vpc_security_group_ids      = [aws_security_group.sg1_prod.id]
+  vpc_security_group_ids      = [aws_security_group.sg1_dev.id]
   subnet_id                   = aws_subnet.public-subnet.id
   associate_public_ip_address = true
 
   user_data                   = <<-EOF
-                #!/bin/bash
-                echo "Hello World"
-                EOF
+    #!/bin/bash
+    echo "Hello World"
+  EOF
   user_data_replace_on_change = true
+
+  tags = {
+    Name = "web-prod-${count.index + 1}"
+  }
 }
-
-resource "aws_instance" "web2_prod" {
-  ami                         = "ami-0500f74cc2b89fb6b"
-  instance_type               = "t3.large"
-  vpc_security_group_ids      = [aws_security_group.sg1_prod.id]
-  subnet_id                   = aws_subnet.public-subnet.id
-  associate_public_ip_address = true
-
-  user_data                   = <<-EOF
-                #!/bin/bash
-                echo "Hello World"
-                EOF
-  user_data_replace_on_change = true
-}
-
-resource "aws_instance" "web3_prod" {
-  ami                         = "ami-0500f74cc2b89fb6b"
-  instance_type               = "t3.large"
-  vpc_security_group_ids      = [aws_security_group.sg1_prod.id]
-  subnet_id                   = aws_subnet.public-subnet.id
-  associate_public_ip_address = true
-
-  user_data                   = <<-EOF
-                #!/bin/bash
-                echo "Hello World"
-                EOF
-  user_data_replace_on_change = true
-}
-
 resource "aws_security_group" "sg1_prod" {
   name   = "sg1prod"
   vpc_id = aws_vpc.public-vpc.id
