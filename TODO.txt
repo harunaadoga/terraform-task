@@ -1,0 +1,25 @@
+Observations and recommendations
+---------------------------------
+
+Security
+- Security groups allow ingress on ports 8080-65535 from anywhere.
+  Tighten to specific ports (e.g. 443) and restrict source CIDRs.
+- No egress rules defined. Add explicit egress.
+- Instances have public IPs. For production, put them behind a
+  load balancer in private subnets.
+- No HTTPS. Add an ALB with TLS termination using ACM.
+
+Resilience
+- Everything is in one AZ (eu-west-2c). Spread across AZs.
+- No auto-scaling. An ASG would handle instance failures and
+  scaling automatically.
+- No health checks or load balancing configured.
+
+State and collaboration
+- State is local. Move to S3 backend with DynamoDB locking for
+  team use.
+- State files should never be committed (added to .gitignore).
+
+General
+- No resource tags beyond Name. Add Environment, Owner at minimum.
+- Add terraform fmt and validate to a CI check.
